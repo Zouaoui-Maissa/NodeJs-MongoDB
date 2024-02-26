@@ -52,7 +52,23 @@ app.use(function (err, req, res, next) {
   res.render("error");
 });
 
+
 const server = http.createServer(app);
+const io = require("socket.io")(server);
+
+io.on('connection',function(socket){
+  console.log('user connected...');
+});
+
+
+
+io.on('connection',(socket)=>{
+  console.log('user connected...');
+  socket.emit("msg","A new user is connected");
+});
+
+
+
 server.listen(4020, () => {
   console.log('App is running on port 4020');
 });
